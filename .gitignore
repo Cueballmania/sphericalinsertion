@@ -6,4 +6,5 @@ overlaps.dat
 vnucpart.dat
 expos.dat
 *.py
+*.out
 xform/

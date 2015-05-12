@@ -1,8 +1,8 @@
 4, 45 !number of elements, order of quadrature
-0,0,  !ell ang, m ang
+1,0,  !ell ang, m ang
 20.0,2  !angle (degrees), number of complex elements
 28, 28 !number of guassians
-0,1 !KE DVR or Insertion \\ switch: 0 - DVR calc, 1 - V Insertion (inverse), 2 - V Insertion (orbits), 3 - H insertion 
+0,0 !KE DVR or Insertion \\ switch: 0 - DVR calc, 1 - V Insertion (inverse), 2 - V Insertion (orbits), 3 - H insertion 
 1 ! Partitionflag
 1.0d-5 ! SVD_tolerance
 290 ! wavefunction test

@@ -8,10 +8,9 @@ LIB = -Wl,-framework -Wl,veclib
 
 .SUFFIXES : .o .f90 .f95 .f08 .f
 
-OBJS =  mainscatter.f90 gaussquad.f95 DERV_DVR.f90 coulpot_insert.f90 lagpot.f90 \
-		engspec.f90 gaussmat.f90 gaussmat_sch.f90 SmxInv.f90 kenginsert.f90 lagkenet.f90\
-		projection.f90 SVD_orthogonalization.f95 algama.f dvr.f90 jwkb.f coul90.f \
-		readmesa.f90 stos.f90 eigentest.f90 calcheck.f90 gausspot.f90 potential_insert.f90
+OBJS =  mainscatter.f90 gaussquad.f95 engspec.f90 gaussmat.f90 algama.f \
+		SVD_orthogonalization.f95 dvr.f90 readmesa.f90 stos.f90 eigentest.f90 \
+		calcheck.f90 gausspot.f90 insertion.f90 partitioning.f90
 .f.0:
 	$(FC) -c $(FFLAGS) $<
 

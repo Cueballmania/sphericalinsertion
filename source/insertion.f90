@@ -1,12 +1,11 @@
 ! This subroutine makes an array of the potential from an insertion of the Gaussian Basis
-SUBROUTINE potential_insert(potential, gridpts, gridweights, vnucf)
+SUBROUTINE insertion(potential, gridpts, gridweights)
 USE inputvariables
 IMPLICIT NONE
 
 ! Input variables
 COMPLEX(KIND=DBL), INTENT(IN) :: gridpts(1:nbasis)
 COMPLEX(KIND=DBL), INTENT(IN) :: gridweights(1:nbasis)
-INTEGER, INTENT(IN) :: vnucf ! include, exclude or only vnuc as the potential
 
 ! Output potential
 COMPLEX(KIND=DBL), INTENT(OUT) :: potential(1:nbasis, 1:nbasis)
@@ -36,19 +35,18 @@ COMPLEX(KIND=DBL) :: smalltemp(1:numgauss,1:numgauss)
 COMPLEX(KIND=DBL) :: largetemp(1:numprimg,1:numprimg)
 
 !Read in gaussian exponents, overlaps and the potential energy in Gaussians
-CALL gausspot(numgauss, overlaps, gaussmatin, vnucf)
+CALL gausspot(numgauss, overlaps, gaussmatin, kedvr, partitionflag)
 
 ! CALL SVD routine to calculate the orthonormal orbitals or the pseudoinverse
 CALL SVD_Ortho(overlaps, inverse_overlaps, numgauss, orthorbitals, norbits, SVD_tol)
 WRITE(6,*) "SVD completed"
 
-IF (vnucf .LT. 0) part = 1
 !Create the Gaussian matrix evaluated in dvrs with the appropriate weights and factors
-CALL gaussmat(gridpts, gridweights, gaussdvr, mfac, part)
+CALL gaussmat(gridpts, gridweights, gaussdvr, mfac)
 
 ! Formal complex conjugate of the angular functions
 mfac=-1
-CALL gaussmat(gridpts, gridweights, conjgaussdvr, mfac, part)
+CALL gaussmat(gridpts, gridweights, conjgaussdvr, mfac)
 
 !!$! Call for contraction matrix
 !!$OPEN(UNIT=95, FILE='xform.dat', STATUS='OLD', ACTION='READ')

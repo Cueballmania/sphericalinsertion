@@ -1,5 +1,5 @@
 !This subroutine reads in the MESA matrices.
-SUBROUTINE gausspot(numgauss,overlaps, matrixin, vnucf)
+SUBROUTINE gausspot(numgauss,overlaps, matrixin, kedvr, partitionflag)
 IMPLICIT NONE
 
 ! Double Precision
@@ -7,7 +7,8 @@ INTEGER, PARAMETER :: DBL = SELECTED_REAL_KIND(p=13,r=200)
 
 ! Input variable
 INTEGER, INTENT(IN) :: numgauss
-INTEGER, INTENT(IN) :: vnucf !(if vnuc>0: add vnuc, if 0, do not, if < 0, only vnuc)
+INTEGER, INTENT(IN) :: kedvr
+INTEGER, INTENT(IN) :: partitionflag
 
 ! Output matrices
 REAL(KIND=DBL), INTENT(OUT) :: matrixin(1:numgauss, 1:numgauss)
@@ -32,7 +33,11 @@ CALL readmesa('overlaps.dat', numgauss, overlaps)
 CALL readmesa('kineticx.dat', numgauss, kinetic)
 
 ! Read in vnuc
-CALL readmesa('vnucxxxx.dat', numgauss, vnuc)
+IF(partitionflag .EQ. 1) THEN
+   CALL readmesa('vnucpart.dat', numgauss, vnuc)
+ELSE
+   CALL readmesa('vnucxxxx.dat', numgauss, vnuc)
+ENDIF
 
 ! Read in direct
 CALL readmesa('directxx.dat', numgauss, direct)
@@ -41,15 +46,12 @@ CALL readmesa('directxx.dat', numgauss, direct)
 CALL readmesa('exchange.dat', numgauss, exchange)
 
 ! Include vnuc?
-IF (vnucf .GE. 1) THEN
-   matrixin =  vnuc + direct - 0.5*exchange
-ELSE IF (vnucf .EQ. 0) THEN
-   matrixin = direct - 0.5*exchange
-ELSE IF (vnucf .LE. -1) THEN
-   matrixin = vnuc
+IF (kedvr .EQ. 1) THEN
+   matrixin =  kinetic + vnuc + direct - 0.5*exchange
+ELSE
+   matrixin = vnuc + direct - 0.5*exchange
 ENDIF
-!matrixin = vnuc 
-!matrixin = vnuc + direct
+
 
 !!$OPEN(UNIT=12, FILE="overlaps.out", STATUS='UNKNOWN', ACTION='WRITE')
 !!$DO i=1, numgauss

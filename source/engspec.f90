@@ -1,20 +1,17 @@
 !This subroutine will output the energy spectrum
-SUBROUTINE engspec(kinetic, potential, wavefunction, wfn)
+SUBROUTINE engspec(hamiltonian, wavefunction, wfn)
 USE inputvariables
 IMPLICIT NONE
 
 ! Input variables
-COMPLEX(KIND=DBL), INTENT(IN) :: kinetic(1:nbasis,1:nbasis)
-COMPLEX(KIND=DBL), INTENT(IN) :: potential(1:nbasis,1:nbasis)
+COMPLEX(KIND=DBL), INTENT(IN) :: hamiltonian(1:nbasis,1:nbasis)
 INTEGER, INTENT(IN) :: wfn                                      ! eigenvector to test
 
 ! Output wavefuncton
-COMPLEX(KIND=DBL) :: wavefunction(1:nbasis)
-
+COMPLEX(KIND=DBL), INTENT(OUT) :: wavefunction(1:nbasis)
 
 ! Local variables
 INTEGER :: i, j
-COMPLEX(KIND=DBL) :: hamiltonian(1:nbasis,1:nbasis)
 
 ! LAPACK variables
 INTEGER :: info
@@ -27,8 +24,6 @@ REAL(KIND=DBL) :: cwork(1:2*nbasis)
 
 
 ! Generate the hamiltonian matrix
-hamiltonian = kinetic + potential
-!hamiltonian = potential
 
 !Diagonalize the hamiltonian matrix
 CALL ZGEEV(jobvl, jobvr, nbasis, hamiltonian, nbasis, energies, empt, nbasis, eigen, nbasis, workspace, 20*nbasis, cwork, info)

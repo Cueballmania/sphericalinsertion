@@ -73,7 +73,7 @@ fileopen: IF (ierror == 0) THEN
       ENDIF
 
       garray(i) = evalue
-      WRITE(1909,'(1x,I3,3ES16.7E2,1x,A3,5(ES15.6E3,1x))') mang,gridpt,zoff,sym,expo,evalue
+!      WRITE(1909,'(1x,I3,3ES16.7E2,1x,A3,5(ES15.6E3,1x))') mang,gridpt,zoff,sym,expo,evalue
    ENDDO readeval
 
 CLOSE(10)

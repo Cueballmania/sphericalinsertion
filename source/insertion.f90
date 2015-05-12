@@ -25,7 +25,6 @@ COMPLEX(KIND=DBL) :: gaussdvr(1:nbasis,1:numprimg)
 COMPLEX(KIND=DBL) :: conjgaussdvr(1:nbasis,1:numprimg)
 
 REAL(KIND=DBL) :: xformmat(1:numgauss,1:numprimg)
-COMPLEX(KIND=DBL) :: contracted(1:numgauss,1:nbasis)
 
 ! Local temps
 INTEGER :: i, j, k
@@ -48,27 +47,21 @@ CALL gaussmat(gridpts, gridweights, gaussdvr, mfac)
 mfac=-1
 CALL gaussmat(gridpts, gridweights, conjgaussdvr, mfac)
 
-!!$! Call for contraction matrix
-!!$OPEN(UNIT=95, FILE='xform.dat', STATUS='OLD', ACTION='READ')
-!!$DO i=1, numgauss
-!!$   READ(95, *) (xformmat(i,j),j=1,numprimg)
-!!$ENDDO
-!!$CLOSE(95)
-!!$
-!!$! Write out the contractions
-!!$contracted  = MATMUL(xformmat, TRANSPOSE(gaussdvr))
-!!$
-!!$OPEN(UNIT=110, FILE='contraction.out', STATUS='UNKNOWN', ACTION='WRITE')
-!!$DO i=1, nbasis
-!!$   WRITE(110, '(60ES18.8E3)') gridpts(i), (contracted(j,i), j=1, numgauss)
-!!$ENDDO
-!!$CLOSE(110)
+IF (numgauss < numprimg) THEN
+   ! Call for contraction matrix
+   OPEN(UNIT=95, FILE='xform.dat', STATUS='OLD', ACTION='READ')
+   DO i=1, numgauss
+      READ(95, *) (xformmat(i,j),j=1,numprimg)
+   ENDDO
+   CLOSE(95)
+   
+ELSE
+   xformmat = 0.0d0
+   DO i=1, numgauss
+      xformmat(i,i) = 1.0d0
+   ENDDO
+ENDIF
 
-!!$OPEN(UNIT=115, FILE='gprim.out', STATUS='UNKNOWN', ACTION='WRITE')
-!!$DO i=1, nbasis
-!!$   WRITE(115, '(60ES18.8E3)') (gaussdvr(i,j), j=1, numgauss)
-!!$ENDDO
-!!$CLOSE(115)
 
 ! Use SVD orbitals or inverse for the insertion?
 !    SVDswitch == 1: orbitals

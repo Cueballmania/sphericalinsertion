@@ -127,13 +127,6 @@ IF(switchv .EQ. 0) THEN
 ELSE
    CALL insertion(potential, gridpts, gridweights)
 
-   !Add the L^2 Eigenvalue
-   IF (l_ang > 0) THEN
-      DO i=1, nbasis
-         potential(i,i) = potential(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
-      ENDDO
-   ENDIF
-
    ! Add the partitioning of the nuclear potential if partitionflag == 1
    IF(partitionflag .EQ. 1) THEN
       WRITE(*,*) "Using the partitioning function!"
@@ -152,6 +145,13 @@ ELSE
 
       potential = potential + temppot
       DEALLOCATE(temppot)
+   ELSE
+      !Add the L^2 Eigenvalue
+      IF (l_ang > 0) THEN
+         DO i=1, nbasis
+            potential(i,i) = potential(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
+         ENDDO
+      ENDIF
    ENDIF
 ENDIF
 

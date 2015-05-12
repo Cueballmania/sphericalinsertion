@@ -30,7 +30,7 @@ ENDIF
 WRITE(*,'(" There are ", I3, " elements.  The last ", I3," are complex")') numelements, celements
 
 IF(celements > 0) THEN
-   WRITE(*, '("The angle of scaling is ", ES8.3, " degrees or ", ES8.5, " pi radians")') angle, angle*Pi/180.0
+   WRITE(*, '("The angle of scaling is ", ES10.3, " degrees or ", ES10.5, " pi radians")') angle, angle*Pi/180.0
 ENDIF
 
 ! Check if the number of quadrature points per eleement less than MAXN

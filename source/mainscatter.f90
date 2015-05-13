@@ -46,7 +46,7 @@ USE inputvariables
 IMPLICIT NONE
 
 ! Local variables
-INTEGER :: i, info
+INTEGER :: i, j, info
 
 ! Hamiltonian matrices
 COMPLEX(KIND=DBL), ALLOCATABLE :: kinetic(:,:), potential(:,:), temppot(:,:)
@@ -140,7 +140,7 @@ ELSE
 
       ! For the second element, use the representation of -Z/r * (1-P(r))
       DO i=norder, 2*norder-2
-         temppot(i,i) = -10.0*(1.0d0-partitioning(REAL(gridpts(i)), REAL(gridpts(norder)), REAL(gridpts(2*norder-2))))/gridpts(i)
+         temppot(i,i) = -10.0*(1.0d0-partitioning(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))/gridpts(i)
       ENDDO      
 
       potential = potential + temppot
@@ -161,6 +161,7 @@ hamiltonian = kinetic + potential
 WRITE(*,*) " Calcuation ENERGY!"
 
 ALLOCATE(wavefunction(1:nbasis))
+
 CALL engspec(hamiltonian, wavefunction, wfn)
 
 !!$! Test properties of the eigenvalues and eigenvectors

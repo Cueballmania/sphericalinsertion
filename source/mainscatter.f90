@@ -50,7 +50,7 @@ INTEGER :: i, info
 
 ! Hamiltonian matrices
 COMPLEX(KIND=DBL), ALLOCATABLE :: kinetic(:,:), potential(:,:), temppot(:,:)
-COMPLEX(KIND=DBL), ALLOCATABLE :: Hamiltonian(:,:)
+COMPLEX(KIND=DBL), ALLOCATABLE :: hamiltonian(:,:)
 
 ! Basis information
 COMPLEX(KIND=DBL), ALLOCATABLE :: gridpts(:)

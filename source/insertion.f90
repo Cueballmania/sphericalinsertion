@@ -47,19 +47,19 @@ CALL gaussmat(gridpts, gridweights, gaussdvr, mfac)
 mfac=-1
 CALL gaussmat(gridpts, gridweights, conjgaussdvr, mfac)
 
-IF (numgauss < numprimg) THEN
+IF (numgauss .EQ. numprimg) THEN
+   xformmat = 0.0d0
+   DO i=1, numgauss
+      xformmat(i,i) = 1.0d0
+   ENDDO
+   
+ELSE
    ! Call for contraction matrix
    OPEN(UNIT=95, FILE='xform.dat', STATUS='OLD', ACTION='READ')
    DO i=1, numgauss
       READ(95, *) (xformmat(i,j),j=1,numprimg)
    ENDDO
    CLOSE(95)
-   
-ELSE
-   xformmat = 0.0d0
-   DO i=1, numgauss
-      xformmat(i,i) = 1.0d0
-   ENDDO
 ENDIF
 
 
@@ -73,7 +73,8 @@ insertinverse: IF(switchv .EQ. 2) THEN
    ! Evaluate the insertion multiplication
    smalltemp = MATMUL(TRANSPOSE(orthorbitals),MATMUL(gaussmatin,orthorbitals))
    smalltemp = MATMUL(orthorbitals,MATMUL(smalltemp,TRANSPOSE(orthorbitals)))
-   potential = MATMUL(conjgaussdvr,MATMUL(smalltemp,TRANSPOSE(gaussdvr)))
+   largetemp = MATMUL(TRANSPOSE(xformmat),MATMUL(smalltemp,xformmat))
+   potential = MATMUL(conjgaussdvr,MATMUL(largetemp,TRANSPOSE(gaussdvr)))
 
 
 ELSE IF(switchv .EQ. 1) THEN insertinverse
@@ -82,6 +83,8 @@ ELSE IF(switchv .EQ. 1) THEN insertinverse
 
    !Create the inserted potential evaluated on the DVR
    smalltemp = MATMUL(inverse_overlaps,MATMUL(gaussmatin,inverse_overlaps))
+   largetemp = MATMUL(TRANSPOSE(xformmat),MATMUL(smalltemp,xformmat))
+   potential = MATMUL(conjgaussdvr,MATMUL(largetemp,TRANSPOSE(gaussdvr)))
    potential = MATMUL(conjgaussdvr,MATMUL(smalltemp,TRANSPOSE(gaussdvr)))
 
 

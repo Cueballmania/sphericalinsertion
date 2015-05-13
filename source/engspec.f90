@@ -30,6 +30,7 @@ CALL ZGEEV(jobvl, jobvr, nbasis, hamiltonian, nbasis, energies, empt, nbasis, ei
 
 WRITE(*,*) "Diagonal"
 
+
 DO i=1, nbasis
    wavefunction(i) = eigen(i,wfn)
 ENDDO

@@ -62,6 +62,7 @@ COMPLEX(KIND=DBL), ALLOCATABLE :: wavefunction(:)
 
 ! Partition function
 REAL(KIND=DBL) :: partitioning
+REAL(KIND=DBL) :: parfact
 
 
 !The order of operations
@@ -135,12 +136,14 @@ ELSE
 
       ! For the first element, use the exact nuclear potential for the first element
       DO i=1, norder-1
-         temppot(i,i) = -10.0/gridpts(i)
+         temppot(i,i) = -10.0/gridpts(i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
       ENDDO
 
       ! For the second element, use the representation of -Z/r * (1-P(r))
       DO i=norder, 2*norder-2
-         temppot(i,i) = -10.0*(1.0d0-partitioning(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))/gridpts(i)
+         parfact = (1.0d0-partitioning(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))
+         temppot(i,i) = -10.0*parfact/gridpts(i)
+         temppot(i,I) = temppot(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))*parfact/gridpts(i)/gridpts(i)
       ENDDO      
 
       potential = potential + temppot
@@ -163,6 +166,15 @@ WRITE(*,*) " Calcuation ENERGY!"
 ALLOCATE(wavefunction(1:nbasis))
 
 CALL engspec(hamiltonian, wavefunction, wfn)
+
+IF(wfn .NE. 0)THEN
+   OPEN(UNIT=222, file='wavefunction.out', status='unknown')
+   DO i=1, nbasis
+      WRITE(222,'(1x,4ES17.9)') DREAL(gridpts(i)), DIMAG(gridpts(i)), &
+      & DREAL(wavefunction(i)/SQRT(gridweights(i))), DIMAG(wavefunction(i)/SQRT(gridweights(i)))
+   ENDDO
+   CLOSE(222)
+ENDIF
 
 !!$! Test properties of the eigenvalues and eigenvectors
 !!$CALL eigentest(kinetic, potential,gridpts,gridweights, wavefunction)

@@ -73,7 +73,8 @@ insertinverse: IF(switchv .EQ. 2) THEN
    ! Evaluate the insertion multiplication
    smalltemp = MATMUL(TRANSPOSE(orthorbitals),MATMUL(gaussmatin,orthorbitals))
    smalltemp = MATMUL(orthorbitals,MATMUL(smalltemp,TRANSPOSE(orthorbitals)))
-   potential = MATMUL(conjgaussdvr,MATMUL(smalltemp,TRANSPOSE(gaussdvr)))
+   largetemp = MATMUL(TRANSPOSE(xformmat),MATMUL(smalltemp,xformmat))
+   potential = MATMUL(conjgaussdvr,MATMUL(largetemp,TRANSPOSE(gaussdvr)))
 
 
 ELSE IF(switchv .EQ. 1) THEN insertinverse
@@ -82,7 +83,8 @@ ELSE IF(switchv .EQ. 1) THEN insertinverse
 
    !Create the inserted potential evaluated on the DVR
    smalltemp = MATMUL(inverse_overlaps,MATMUL(gaussmatin,inverse_overlaps))
-   potential = MATMUL(conjgaussdvr,MATMUL(smalltemp,TRANSPOSE(gaussdvr)))
+   largetemp = MATMUL(TRANSPOSE(xformmat),MATMUL(smalltemp,xformmat))
+   potential = MATMUL(conjgaussdvr,MATMUL(largetemp,TRANSPOSE(gaussdvr)))
 
 
 ELSE insertinverse

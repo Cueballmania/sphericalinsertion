@@ -85,7 +85,6 @@ ELSE IF(switchv .EQ. 1) THEN insertinverse
    smalltemp = MATMUL(inverse_overlaps,MATMUL(gaussmatin,inverse_overlaps))
    largetemp = MATMUL(TRANSPOSE(xformmat),MATMUL(smalltemp,xformmat))
    potential = MATMUL(conjgaussdvr,MATMUL(largetemp,TRANSPOSE(gaussdvr)))
-   potential = MATMUL(conjgaussdvr,MATMUL(smalltemp,TRANSPOSE(gaussdvr)))
 
 
 ELSE insertinverse

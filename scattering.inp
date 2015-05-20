@@ -1,4 +1,4 @@
-5, 75 !number of elements, order of quadrature
+5, 35 !number of elements, order of quadrature
 0,0  !ell ang, m ang
 20.0,2  !angle (degrees), number of complex elements
 28, 28 !number of guassians

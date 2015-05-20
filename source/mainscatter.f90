@@ -10,6 +10,7 @@ INTEGER, PARAMETER :: MAXN = 500
 
 ! Static parameters
 REAL(KIND=DBL), PARAMETER :: PI = 3.141592653589
+INTEGER, PARAMETER :: nucharge = 10
 REAL(KIND=DBL), PARAMETER ::TOLERANCE = 1D-10
 REAL(KIND=DBL), PARAMETER :: duey=2.0d0
 COMPLEX(KIND=DBL), PARAMETER :: czero=(0.0D0,0.0D0)
@@ -131,18 +132,24 @@ ELSE
    ! Add the partitioning of the nuclear potential if partitionflag == 1
    IF(partitionflag .EQ. 1) THEN
       WRITE(*,*) "Using the partitioning function!"
+      WRITE(*,*) "Creating the partitioned nuclear attraction matrix"
+
+      CALL vnucpart(nucharge, norder, numelements, numgauss, numprimg)
+
+      WRITE(*,*) "Finished up creating partitioned nuclear attraction matrix"
+      
       ALLOCATE(temppot(1:nbasis,1:nbasis))
       temppot = czero
 
       ! For the first element, use the exact nuclear potential for the first element
       DO i=1, norder-1
-         temppot(i,i) = -10.0/gridpts(i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
+         temppot(i,i) = -nucharge/gridpts(i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
       ENDDO
 
       ! For the second element, use the representation of -Z/r * (1-P(r))
       DO i=norder, 2*norder-2
          parfact = (1.0d0-partitioning(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))
-         temppot(i,i) = -10.0*parfact/gridpts(i)
+         temppot(i,i) = -nucharge*parfact/gridpts(i)
          temppot(i,I) = temppot(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))*parfact/gridpts(i)/gridpts(i)
       ENDDO      
 

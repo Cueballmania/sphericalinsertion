@@ -35,7 +35,7 @@ REAL(KIND=DBL) :: xform(1:ngauss,1:nprim)
 ! Matrices
 REAL(KIND=DBL) :: vnucprim(1:nprim,1:nprim)
 REAL(KIND=DBL) :: vnuccont(1:ngauss,1:ngauss)
-REAL(KIND=DBL) :: xformmat(ngauss,nprim)
+REAL(KIND=DBL) :: tempcont(1:ngauss,1:nprim)
 
 ! Temp variables
 INTEGER :: i, j, jj, k, info, nbasis
@@ -129,26 +129,41 @@ ENDDO
 
 ! xform to contracted
 IF (ngauss .EQ. nprim) THEN
-   xformmat = 0.0d0
+   xform = 0.0d0
    DO i=1, ngauss
-      xformmat(i,i) = 1.0d0
+      xform(i,i) = 1.0d0
    ENDDO
    
 ELSE
    ! Call for contraction matrix
    OPEN(UNIT=95, FILE='xform.dat', STATUS='OLD', ACTION='READ')
    DO i=1, ngauss
-      READ(95, *) (xformmat(i,j),j=1,nprim)
+      READ(95, *) (xform(i,j),j=1,nprim)
    ENDDO
    CLOSE(95)
 ENDIF
 
-vnuccont = MATMUL(xformmat,MATMUL(vnucprim,xformmat))
+OPEN(UNIT=85, FILE='xform2.dat', STATUS='UNKNOWN', ACTION='WRITE')
+DO i=1, ngauss
+   WRITE(85, *) (xform(i,j), j=1, nprim)
+ENDDO
+CLOSE(85)
+
+
+tempcont = MATMUL(xform,vnucprim)
+vnuccont = MATMUL(tempcont,TRANSPOSE(xform))
+
+! Write out matrix
+OPEN(UNIT=85, FILE='vnucprim.dat', STATUS='UNKNOWN', ACTION='WRITE')
+DO i=1, nprim
+   WRITE(85, *) (vnucprim(i,j), j=1, nprim)
+ENDDO
+CLOSE(85)
 
 ! Write out matrix
 OPEN(UNIT=85, FILE='vnucpart.dat', STATUS='UNKNOWN', ACTION='WRITE')
 DO i=1, ngauss
-   WRITE(85, '(300ES19.10)') (vnuccont(i,j), j=1, ngauss)
+   WRITE(85, *) (vnuccont(i,j), j=1, ngauss)
 ENDDO
 CLOSE(85)
 

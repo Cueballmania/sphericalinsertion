@@ -119,16 +119,21 @@ IF(kedvr .EQ. 1) THEN
    kinetic = czero
 ENDIF
 
+! Add the centrifugal term
+IF (l_ang > 0) THEN
+   DO i=1, nbasis
+      kinetic(i,i) = kinetic(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
+   ENDDO
+ENDIF
+
 !Generate the potential either on DVRs (switchv=0) or via insertion (switchv.NE.1)
 IF(switchv .EQ. 0) THEN
    DO i=1,nbasis
-      potential(i,i) = -1.0/gridpts(i) +0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
+      potential(i,i) = -1.0/gridpts(i) 
    ENDDO
 
-! If insertion
+! If insertion, check if we're making a partitioned potential
 ELSE
-   CALL insertion(potential, gridpts, gridweights)
-
    ! Add the partitioning of the nuclear potential if partitionflag == 1
    IF(partitionflag .EQ. 1) THEN
       WRITE(*,*) "Using the partitioning function!"
@@ -136,32 +141,36 @@ ELSE
 
       CALL vnucpart(nucharge, norder, numelements, numgauss, numprimg)
 
-      WRITE(*,*) "Finished up creating partitioned nuclear attraction matrix"
+      WRITE(*,*) "Finished creating partitioned nuclear attraction matrix"
+
+      CALL insertion(potential, gridpts, gridweights)
       
       ALLOCATE(temppot(1:nbasis,1:nbasis))
       temppot = czero
 
       ! For the first element, use the exact nuclear potential for the first element
       DO i=1, norder-1
-         temppot(i,i) = -nucharge/gridpts(i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
+         temppot(i,i) = -nucharge/gridpts(i)
       ENDDO
 
       ! For the second element, use the representation of -Z/r * (1-P(r))
       DO i=norder, 2*norder-2
          parfact = (1.0d0-partitioning(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))
          temppot(i,i) = -nucharge*parfact/gridpts(i)
-         temppot(i,I) = temppot(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))*parfact/gridpts(i)/gridpts(i)
-      ENDDO      
+      ENDDO
 
+      OPEN(UNIT=23, FILE='potentialcut.out', STATUS='UNKNOWN', ACTION='WRITE')
+      DO i=1, nbasis
+         WRITE(23, *) REAL(gridpts(i)), IMAG(gridweights(i)), REAL(temppot(i,i))
+      ENDDO
+      CLOSE(23)
+      
       potential = potential + temppot
       DEALLOCATE(temppot)
+
+   ! If using regular insertion for the nuclear attraction term just do it.
    ELSE
-      !Add the L^2 Eigenvalue
-      IF (l_ang > 0) THEN
-         DO i=1, nbasis
-            potential(i,i) = potential(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
-         ENDDO
-      ENDIF
+      CALL insertion(potential, gridpts, gridweights)
    ENDIF
 ENDIF
 

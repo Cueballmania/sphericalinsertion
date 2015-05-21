@@ -122,7 +122,6 @@ DO i=1, nprim
       ENDIF
       vnucprim(i,j) = -sum*anorm*bnorm*PI*nucharge*coefac
       IF(ABS(vnucprim(i,j)) .LT. tol) vnucprim(i,j) = 0.0d0
-      WRITE(1092,*) i,j, sum, anorm, bnorm, PI,nucharge,coefac,vnucprim(i,j)
       IF(j>i) vnucprim(j,i) = vnucprim(i,j)
    ENDDO
 ENDDO
@@ -142,13 +141,6 @@ ELSE
    ENDDO
    CLOSE(95)
 ENDIF
-
-OPEN(UNIT=85, FILE='xform2.dat', STATUS='UNKNOWN', ACTION='WRITE')
-DO i=1, ngauss
-   WRITE(85, *) (xform(i,j), j=1, nprim)
-ENDDO
-CLOSE(85)
-
 
 tempcont = MATMUL(xform,vnucprim)
 vnuccont = MATMUL(tempcont,TRANSPOSE(xform))

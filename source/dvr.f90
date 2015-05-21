@@ -2,7 +2,7 @@ SUBROUTINE DVR(nelements, celements, norder, nbasis, angle, grid, weights, kinet
 !SUBROUTINE DVR(nelements, celements, norder, nbasis, angle)
 ! This subroutine creature a FEDVR grid with either no scaling, straight complex
 ! scaling or exterior complex scaling
-! It returns the grid, weights and the kinetic energy matrix
+! It returns the grid, weights and the kinetic energy matrix only in r -- no centrifugal term
 !
 ! This subroutine reades elements.inp for starting and endpoints of each element
 !

@@ -62,9 +62,8 @@ INTEGER :: wfn
 COMPLEX(KIND=DBL), ALLOCATABLE :: wavefunction(:)
 
 ! Partition function
-REAL(KIND=DBL) :: partitioning
+REAL(KIND=DBL) :: beckepart, bumppart
 REAL(KIND=DBL) :: parfact
-
 
 !The order of operations
 !Read in from file
@@ -135,11 +134,11 @@ IF(switchv .EQ. 0) THEN
 ! If insertion, check if we're making a partitioned potential
 ELSE
    ! Add the partitioning of the nuclear potential if partitionflag == 1
-   IF(partitionflag .EQ. 1) THEN
+   IF(partitionflag .GT. 0) THEN
       WRITE(*,*) "Using the partitioning function!"
       WRITE(*,*) "Creating the partitioned nuclear attraction matrix"
 
-      CALL vnucpart(nucharge, norder, numelements, numgauss, numprimg)
+!      CALL vnucpart(nucharge, norder, numelements, numgauss, numprimg)
 
       WRITE(*,*) "Finished creating partitioned nuclear attraction matrix"
 
@@ -155,7 +154,15 @@ ELSE
 
       ! For the second element, use the representation of -Z/r * (1-P(r))
       DO i=norder, 2*norder-2
-         parfact = (1.0d0-partitioning(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))
+         IF(partitionflag .EQ. 1) THEN
+            parfact = 0.0d0
+         ELSEIF(partitionflag .EQ. 2) THEN
+            parfact = (1.0d0-beckepart(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))
+         ELSEIF(partitionflag .EQ. 3) THEN
+            parfact = (1.0d0-bumppart(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))
+         ELSE
+            WRITE(*,*) "parititionflag = ", partitionflag, " not defined"
+         ENDIF
          temppot(i,i) = -nucharge*parfact/gridpts(i)
       ENDDO
 

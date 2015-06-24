@@ -55,18 +55,18 @@ fileopen: IF (ierror == 0) THEN
 
       ! Cases for the angular parts
       IF(sym .EQ. 'ss' .AND. lang .EQ. 0) THEN
-         evalue = (2.0d0*expo/pi)**(0.75)*gridpt*evalue*2.0d0*sqtpi
+         evalue = (2.0d0*expo/pi)**(0.75)*evalue*2.0d0*sqtpi
 
       ELSEIF(sym .EQ. 'px' .AND. lang .EQ. 1 .AND. mang .EQ. 1) THEN
-         evalue = -gridpt*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = -gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
       ELSEIF(sym .EQ. 'px' .AND. lang .EQ. 1 .AND. mang .EQ. -1) THEN
-         evalue = gridpt*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
       ELSEIF(sym .EQ. 'py' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
-         evalue = -ci*gridpt*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = -ci*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
       ELSEIF(sym .EQ. 'py' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
-         evalue = ci*gridpt*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = ci*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
       ELSEIF(sym .EQ. 'pz' .AND. lang .EQ. 1 .AND. mang .EQ. 0) THEN
-         evalue = gridpt*gridpt*evalue*2.0d0*sqtpi/SQRT(3.0d0)*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = gridpt*evalue*2.0d0*sqtpi/SQRT(3.0d0)*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
 
       ELSE
          evalue = (0.0d0,0.0d0)

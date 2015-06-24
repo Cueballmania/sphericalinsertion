@@ -82,7 +82,7 @@ CLOSE(1000)
 
 ! Calculate some constants
 relements = numelements-celements
-nbasis = (norder-1)*numelements-1
+nbasis = (norder-1)*numelements
 contourphase = DCMPLX(COS(angle*PI/180.),SIN(angle*PI/180.))
 
 ! Check input parameters and echo input parameters
@@ -119,7 +119,7 @@ IF(kedvr .EQ. 1) THEN
 ENDIF
 
 ! Add the centrifugal term
-IF (l_ang > 0) THEN
+IF (l_ang > 0 .AND. (kedvr .NE. 1 .AND. switchv .NE. 1)) THEN
    DO i=1, nbasis
       kinetic(i,i) = kinetic(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
    ENDDO
@@ -163,6 +163,7 @@ ELSE
          ELSE
             WRITE(*,*) "parititionflag = ", partitionflag, " not defined"
          ENDIF
+         WRITE(888,*) parfact, REAL(gridpts(i))
          temppot(i,i) = -nucharge*parfact/gridpts(i)
       ENDDO
 

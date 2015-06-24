@@ -31,7 +31,7 @@ REAL(KIND=DBL) :: becke
 ! Input value
 REAL(KIND=DBL), INTENT(IN) :: x
 
-becke = (1.5d0-0.5d0*x*x)*x
+becke = 0.5*(3.0d0-x*x)*x
 
 RETURN
 END FUNCTION becke

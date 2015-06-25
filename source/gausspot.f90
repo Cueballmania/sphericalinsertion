@@ -34,7 +34,11 @@ CALL readmesa('kineticx.dat', numgauss, kinetic)
 
 ! Read in vnuc
 IF(partitionflag .EQ. 1) THEN
-   CALL readmesa('vnucpart.dat', numgauss, vnuc)
+   CALL readmesa('vnucthet.dat', numgauss, vnuc)
+ELSEIF(partitionflag .EQ. 2) THEN
+   CALL readmesa('vnucbeck.dat', numgauss, vnuc)
+ELSEIF(partitionflag .EQ. 3) THEN
+   CALL readmesa('vnucbump.dat', numgauss, vnuc) 
 ELSE
    CALL readmesa('vnucxxxx.dat', numgauss, vnuc)
 ENDIF

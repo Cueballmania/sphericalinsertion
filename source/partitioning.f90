@@ -1,4 +1,5 @@
-! This function calculates the value of the partitioning function at a given x between [a,b]
+! This function calculates the value of the bump
+! partitioning function at a given x between [a,b]
 FUNCTION partitioning(x, a, b)
 IMPLICIT NONE
 

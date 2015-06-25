@@ -154,12 +154,15 @@ ELSE
 
       ! For the second element, use the representation of -Z/r * (1-P(r))
       DO i=norder, 2*norder-2
+         ! Heviside Theta function
          IF(partitionflag .EQ. 1) THEN
             parfact = 0.0d0
+         ! Becke partitioning function
          ELSEIF(partitionflag .EQ. 2) THEN
-            parfact = (1.0d0-beckepart(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))
+            parfact = (1.0d0-beckepart(REAL(gridpts(i)), REAL(gridpts(norder)), REAL(gridpts(2*norder-1))))
+         ! Bump partitioning function
          ELSEIF(partitionflag .EQ. 3) THEN
-            parfact = (1.0d0-bumppart(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-2))))
+            parfact = (1.0d0-bumppart(REAL(gridpts(i)), REAL(gridpts(norder)), REAL(gridpts(2*norder-1))))
          ELSE
             WRITE(*,*) "parititionflag = ", partitionflag, " not defined"
          ENDIF

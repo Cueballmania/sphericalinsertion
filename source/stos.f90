@@ -30,7 +30,7 @@ INTEGER :: i,j, iread
 INTEGER :: ierror
 REAL(KIND=DBL) :: expo
 COMPLEX(KIND=DBL):: evalue
-CHARACTER(LEN=2) :: sym
+CHARACTER(LEN=3) :: sym
 REAL(KIND=DBL) :: zoff
 
 ! Open the file!

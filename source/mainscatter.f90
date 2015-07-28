@@ -119,7 +119,7 @@ IF(kedvr .EQ. 1) THEN
 ENDIF
 
 ! Add the centrifugal term
-IF (l_ang > 0 .AND. (kedvr .NE. 1 .AND. switchv .NE. 1)) THEN
+IF (l_ang > 0 .AND. (kedvr .NE. 1 )) THEN
    DO i=1, nbasis
       kinetic(i,i) = kinetic(i,i) + 0.5d0*(l_ang*(l_ang+1.0d0))/gridpts(i)/gridpts(i)
    ENDDO

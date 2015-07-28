@@ -51,23 +51,59 @@ fileopen: IF (ierror == 0) THEN
       ENDIF
       
       ! Evaluate the Gaussian expoential
-      evalue = EXP(-expo*(gridpt*gridpt))
+      evalue = (2.0d0*expo/pi)**(0.75)*EXP(-expo*(gridpt*gridpt))
 
       ! Cases for the angular parts
       IF(sym .EQ. 'ss' .AND. lang .EQ. 0) THEN
-         evalue = (2.0d0*expo/pi)**(0.75)*evalue*2.0d0*sqtpi
+         evalue = evalue*2.0d0*sqtpi
 
       ELSEIF(sym .EQ. 'px' .AND. lang .EQ. 1 .AND. mang .EQ. 1) THEN
-         evalue = -gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = -gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*SQRT(expo)
       ELSEIF(sym .EQ. 'px' .AND. lang .EQ. 1 .AND. mang .EQ. -1) THEN
-         evalue = gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*SQRT(expo)
       ELSEIF(sym .EQ. 'py' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
-         evalue = -ci*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = -ci*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*SQRT(expo)
       ELSEIF(sym .EQ. 'py' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
-         evalue = ci*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = ci*gridpt*evalue*SQRT(2.0d0/3.0d0)*sqtpi*2.0d0*SQRT(expo)
       ELSEIF(sym .EQ. 'pz' .AND. lang .EQ. 1 .AND. mang .EQ. 0) THEN
-         evalue = gridpt*evalue*2.0d0*sqtpi/SQRT(3.0d0)*2.0d0*(2.0d0/pi)**(0.75)*expo**(1.25)
+         evalue = gridpt*evalue*4.0d0*sqtpi*SQRT(expo/3.0d0)
 
+
+      ! Normalization of dxx, dyy, dzz, functions are off by a factor of sqrt(3)
+      ELSEIF(sym .EQ. 'xx' .AND. lang .EQ. 0 .AND. mang .EQ. 0) THEN
+         evalue = gridpt*gridpt*8.0d0*expo*sqtpi/3.0d0*evalue
+      ELSEIF(sym .EQ. 'xx' .AND. lang .EQ. 2 .AND. mang .EQ. 0) THEN
+         evalue = -gridpt*gridpt*8.0d0*expo*sqtpi/3.0d0/SQRT(5.0d0)*evalue
+      ELSEIF(sym .EQ. 'xx' .AND. lang .EQ. 2 .AND. ABS(mang) .EQ. 2) THEN
+         evalue = gridpt*gridpt*4.0d0*expo*sqtpi*SQRT(2.0d0/15.0d0)*evalue
+      ELSEIF(sym .EQ. 'yy' .AND. lang .EQ. 0 .AND. mang .EQ. 0) THEN
+         evalue = gridpt*gridpt*8.0d0*expo*sqtpi/3.0d0*evalue
+      ELSEIF(sym .EQ. 'yy' .AND. lang .EQ. 2 .AND. mang .EQ. 0) THEN
+         evalue = -gridpt*gridpt*8.0d0*expo*sqtpi/3.0d0/SQRT(5.0d0)*evalue
+      ELSEIF(sym .EQ. 'yy' .AND. lang .EQ. 2 .AND. ABS(mang) .EQ. 2) THEN
+         evalue = -gridpt*gridpt*4.0d0*expo*sqtpi*SQRT(2.0d0/15.0d0)*evalue
+      ELSEIF(sym .EQ. 'zz' .AND. lang .EQ. 0 .AND. mang .EQ. 0) THEN
+         evalue = gridpt*gridpt*8.0d0*expo*sqtpi/3.0d0*evalue
+      ELSEIF(sym .EQ. 'zz' .AND. lang .EQ. 2 .AND. mang .EQ. 0) THEN
+         evalue = gridpt*gridpt*16.0d0*expo*sqtpi/3.0d0/SQRT(5.0d0)*evalue
+
+      ELSEIF(sym .EQ. 'xy' .AND. lang .EQ. 2 .AND. mang .EQ. 2 .AND. mfac .EQ. 1) THEN
+         evalue = ci*gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
+      ELSEIF(sym .EQ. 'xy' .AND. lang .EQ. 2 .AND. mang .EQ. 2 .AND. mfac .EQ. -1) THEN
+         evalue = -ci*gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
+      ELSEIF(sym .EQ. 'xy' .AND. lang .EQ. 2 .AND. mang .EQ. -2 .AND. mfac .EQ. 1) THEN
+         evalue = -ci*gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
+      ELSEIF(sym .EQ. 'xy' .AND. lang .EQ. 2 .AND. mang .EQ. -2 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue         
+      ELSEIF(sym .EQ. 'xz' .AND. lang .EQ. 2 .AND. mang .EQ. 1) THEN
+         evalue = -gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
+      ELSEIF(sym .EQ. 'xz' .AND. lang .EQ. 2 .AND. mang .EQ. -1) THEN
+         evalue = gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
+      ELSEIF(sym .EQ. 'yz' .AND. lang .EQ. 2 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
+         evalue = -ci*gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
+      ELSEIF(sym .EQ. 'yz' .AND. lang .EQ. 2 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
+         
       ELSE
          evalue = (0.0d0,0.0d0)
       ENDIF

@@ -120,7 +120,7 @@ fileopen: IF (ierror == 0) THEN
          evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(6.0d0)*0.2d0*evalue
 
       ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. mang .EQ. 3 .AND. mfac .EQ. 1) THEN
-         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
       ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. mang .EQ. 3 .AND. mfac .EQ. -1) THEN
          evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
       ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. mang .EQ. -3 .AND. mfac .EQ. 1) THEN
@@ -149,7 +149,7 @@ fileopen: IF (ierror == 0) THEN
          evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.20d0*evalue
       ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
          evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.20d0*evalue
-      ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
+      ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
          evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.20d0*evalue
       ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
          evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.20d0*evalue
@@ -159,7 +159,7 @@ fileopen: IF (ierror == 0) THEN
       ELSEIF(sym .EQ. 'xxz' .AND. lang .EQ. 3 .AND. mang .EQ. 0) THEN
          evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(7.0d0)*0.4d0*evalue
       ELSEIF(sym .EQ. 'xxz' .AND. lang .EQ. 1 .AND. mang .EQ. 0) THEN
-         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(3.0d0)*0.4d0*evalue
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(3.0d0)*0.4d0*evalue
 
       ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 3 .AND. mang .EQ. 3) THEN
          evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue         
@@ -171,7 +171,7 @@ fileopen: IF (ierror == 0) THEN
          evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.2d0*evalue      
       ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 1 .AND. mang .EQ. -1) THEN
          evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.2d0*evalue         
-      ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 3 .AND. mang .EQ. 1) THEN
+      ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 1 .AND. mang .EQ. 1) THEN
          evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.2d0*evalue       
 
       ELSEIF(sym .EQ. 'yyz' .AND. lang .EQ. 3 .AND. mang .EQ. 2) THEN
@@ -217,7 +217,7 @@ fileopen: IF (ierror == 0) THEN
       ENDIF
 
       garray(i) = evalue
-!      WRITE(1909,'(1x,I3,3ES16.7E2,1x,A3,5(ES15.6E3,1x))') mang,gridpt,zoff,sym,expo,evalue
+      !WRITE(1909,'(1x,I3,3ES16.7E2,1x,A3,5(ES15.6E3,1x))') mang,gridpt,zoff,sym,expo,evalue
    ENDDO readeval
 
 CLOSE(10)

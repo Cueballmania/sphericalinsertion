@@ -30,11 +30,4 @@ DO i=1, nbasis
 ENDDO
 
 !
-!!$OPEN(unit=1000, file='gauss_dvr.out', status='unknown')
-!!$DO i=1, nbasis
-!!$   WRITE(1000,'(1x,100ES19.9E3)') DREAL(gridpts(i)), (gaussexp(j), lagmat(i,j),j=1,numgauss)
-!!$ENDDO
-!!$!
-!!$CLOSE(1000)
-!
 END SUBROUTINE

@@ -106,24 +106,110 @@ fileopen: IF (ierror == 0) THEN
 
 
       ! f-functions normalized for xyz; off by sqrt(3) for nnm and off by sqrt(15) for nnn functions
-      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. 3)
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. 3) THEN
          evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
-      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. -3)
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. -3) THEN
          evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
-      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. 1)
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. 1) THEN
          evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(3.0d0/7.0d0)*0.2d0*evalue
-      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. -1)
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. -1) THEN
          evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(3.0d0/7.0d0)*0.2d0*evalue
-      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 1 .AND. mang .EQ. 1)
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 1 .AND. mang .EQ. 1) THEN
          evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(6.0d0)*0.2d0*evalue
-      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 1 .AND. mang .EQ. -1)
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 1 .AND. mang .EQ. -1) THEN
          evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(6.0d0)*0.2d0*evalue
 
+      ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. mang .EQ. 3 .AND. mfac .EQ. 1) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. mang .EQ. 3 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. mang .EQ. -3 .AND. mfac .EQ. 1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. mang .EQ. -3 .AND. mfac .EQ. -1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(3.0d0/7.0d0)*0.2d0*evalue
+      ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(3.0d0/7.0d0)*0.2d0*evalue
+      ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(6.0d0)*0.2d0*evalue
+      ELSEIF(sym .EQ. 'yyy' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(6.0d0)*0.2d0*evalue
 
+      ELSEIF(sym .EQ. 'zzz' .AND. lang .EQ. 3 .AND. mang .EQ. 0) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(7.0d0)*0.8d0*evalue
+      ELSEIF(sym .EQ. 'zzz' .AND. lang .EQ. 1 .AND. mang .EQ. 0) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(3.0d0)*0.4d0*evalue
 
+      ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 3 .AND. mfac .EQ. 1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 3 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.20d0*evalue
+      ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.20d0*evalue
+      ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.20d0*evalue
+      ELSEIF(sym .EQ. 'xxy' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.20d0*evalue
 
+      ELSEIF(sym .EQ. 'xxz' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 2) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/105.0d0)*evalue
+      ELSEIF(sym .EQ. 'xxz' .AND. lang .EQ. 3 .AND. mang .EQ. 0) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(7.0d0)*0.4d0*evalue
+      ELSEIF(sym .EQ. 'xxz' .AND. lang .EQ. 1 .AND. mang .EQ. 0) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(3.0d0)*0.4d0*evalue
 
+      ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 3 .AND. mang .EQ. 3) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue         
+      ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 3 .AND. mang .EQ. -3) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 3 .AND. mang .EQ. 1) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.2d0*evalue         
+      ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 3 .AND. mang .EQ. -1) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.2d0*evalue      
+      ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 1 .AND. mang .EQ. -1) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.2d0*evalue         
+      ELSEIF(sym .EQ. 'xyy' .AND. lang .EQ. 3 .AND. mang .EQ. 1) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.2d0*evalue       
 
+      ELSEIF(sym .EQ. 'yyz' .AND. lang .EQ. 3 .AND. mang .EQ. 2) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/105.0d0)*evalue         
+      ELSEIF(sym .EQ. 'yyz' .AND. lang .EQ. 3 .AND. mang .EQ. -2) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/105.0d0)*evalue
+      ELSEIF(sym .EQ. 'yyz' .AND. lang .EQ. 3 .AND. mang .EQ. 0) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(7.0d0)*0.4d0*evalue
+      ELSEIF(sym .EQ. 'yyz' .AND. lang .EQ. 1 .AND. mang .EQ. 0) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(3.0d0)*0.4d0*evalue
+
+      ELSEIF(sym .EQ. 'xzz' .AND. lang .EQ. 3 .AND. mang .EQ. 1) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.8d0*evalue         
+      ELSEIF(sym .EQ. 'xzz' .AND. lang .EQ. 3 .AND. mang .EQ. -1) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.8d0*evalue
+      ELSEIF(sym .EQ. 'xzz' .AND. lang .EQ. 1 .AND. mang .EQ. 1) THEN
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.2d0*evalue         
+      ELSEIF(sym .EQ. 'xzz' .AND. lang .EQ. 1 .AND. mang .EQ. -1) THEN
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.2d0*evalue   
+
+      ELSEIF(sym .EQ. 'yzz' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.8d0*evalue 
+      ELSEIF(sym .EQ. 'yzz' .AND. lang .EQ. 3 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(21.0d0)*0.8d0*evalue 
+      ELSEIF(sym .EQ. 'yzz' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. 1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.2d0*evalue 
+      ELSEIF(sym .EQ. 'yzz' .AND. lang .EQ. 1 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/3.0d0)*0.2d0*evalue
+
+      ELSEIF(sym .EQ. 'xyz' .AND. lang .EQ. 3 .AND. mang .EQ. 2 .AND. mfac .EQ. 1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/105.0d0)*evalue
+      ELSEIF(sym .EQ. 'xyz' .AND. lang .EQ. 3 .AND. mang .EQ. 2 .AND. mfac .EQ. -1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/105.0d0)*evalue
+      ELSEIF(sym .EQ. 'xyz' .AND. lang .EQ. 3 .AND. mang .EQ. -2 .AND. mfac .EQ. 1) THEN
+         evalue = -ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/105.0d0)*evalue
+      ELSEIF(sym .EQ. 'xyz' .AND. lang .EQ. 3 .AND. mang .EQ. -2 .AND. mfac .EQ. -1) THEN
+         evalue = ci*gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(2.0d0/105.0d0)*evalue
+         
 
          
       ELSE

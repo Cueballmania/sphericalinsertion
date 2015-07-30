@@ -103,6 +103,28 @@ fileopen: IF (ierror == 0) THEN
          evalue = -ci*gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
       ELSEIF(sym .EQ. 'yz' .AND. lang .EQ. 2 .AND. ABS(mang) .EQ. 1 .AND. mfac .EQ. -1) THEN
          evalue = ci*gridpt*gridpt*4.0d0*expo*SQRT(2.0d0/15.0d0)*sqtpi*evalue
+
+
+      ! f-functions normalized for xyz; off by sqrt(3) for nnm and off by sqrt(15) for nnn functions
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. 3)
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. -3)
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi/SQRT(35.0d0)*evalue
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. 1)
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(3.0d0/7.0d0)*0.2d0*evalue
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 3 .AND. mang .EQ. -1)
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(3.0d0/7.0d0)*0.2d0*evalue
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 1 .AND. mang .EQ. 1)
+         evalue = -gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(6.0d0)*0.2d0*evalue
+      ELSEIF(sym .EQ. 'xxx' .AND. lang .EQ. 1 .AND. mang .EQ. -1)
+         evalue = gridpt*gridpt*gridpt*8.0d0*expo**(1.5)*sqtpi*SQRT(6.0d0)*0.2d0*evalue
+
+
+
+
+
+
+
          
       ELSE
          evalue = (0.0d0,0.0d0)

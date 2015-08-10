@@ -10,7 +10,7 @@ INTEGER, PARAMETER :: MAXN = 500
 
 ! Static parameters
 REAL(KIND=DBL), PARAMETER :: PI = 3.141592653589
-INTEGER, PARAMETER :: nucharge = 10
+INTEGER, PARAMETER :: nucharge = 4
 REAL(KIND=DBL), PARAMETER ::TOLERANCE = 1D-10
 REAL(KIND=DBL), PARAMETER :: duey=2.0d0
 COMPLEX(KIND=DBL), PARAMETER :: czero=(0.0D0,0.0D0)
@@ -159,10 +159,10 @@ ELSE
             parfact = 0.0d0
          ! Becke partitioning function
          ELSEIF(partitionflag .EQ. 2) THEN
-            parfact = (1.0d0-beckepart(REAL(gridpts(i)), REAL(gridpts(norder)), REAL(gridpts(2*norder-1))))
+            parfact = (1.0d0-beckepart(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-1))))
          ! Bump partitioning function
          ELSEIF(partitionflag .EQ. 3) THEN
-            parfact = (1.0d0-bumppart(REAL(gridpts(i)), REAL(gridpts(norder)), REAL(gridpts(2*norder-1))))
+            parfact = (1.0d0-bumppart(REAL(gridpts(i)), REAL(gridpts(norder-1)), REAL(gridpts(2*norder-1))))
          ELSE
             WRITE(*,*) "parititionflag = ", partitionflag, " not defined"
          ENDIF
@@ -172,7 +172,7 @@ ELSE
 
       OPEN(UNIT=23, FILE='potentialcut.out', STATUS='UNKNOWN', ACTION='WRITE')
       DO i=1, nbasis
-         WRITE(23, *) REAL(gridpts(i)), IMAG(gridweights(i)), REAL(temppot(i,i))
+         WRITE(23, *) REAL(gridpts(i)), IMAG(gridpts(i)), REAL(temppot(i,i))
       ENDDO
       CLOSE(23)
       

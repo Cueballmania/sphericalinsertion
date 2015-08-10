@@ -1,5 +1,5 @@
-GFORTRAN module version '4' created from mainscatter.f90 on Wed May 20 18:09:19 2015
-MD5:de00cb2d1a2981d6794b62c07a40e0ca -- If you edit this, you'll get what you deserve.
+GFORTRAN module version '4' created from mainscatter.f90 on Fri Aug  7 14:15:18 2015
+MD5:3b4384b14de58fa60e55f42e8832ad62 -- If you edit this, you'll get what you deserve.
 
 (() () () () () () () () () () () () () () () () () () () () () () () ()
 () () ())
@@ -79,7 +79,7 @@ UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
 () 0 () () () 0 0)
 22 'nucharge' 'inputvariables' 'nucharge' 1 ((PARAMETER UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
-(CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '10') () 0 () () () 0 0)
+(CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '4') () 0 () () () 0 0)
 23 'numelements' 'inputvariables' 'numelements' 1 ((VARIABLE
 UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0
 INTEGER ()) 0 0 () () 0 () () () 0 0)

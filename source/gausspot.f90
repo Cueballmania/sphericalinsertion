@@ -56,6 +56,11 @@ ELSE
    matrixin = vnuc + direct - 0.5*exchange
 ENDIF
 
+!!$OPEN(UNIT=12, FILE="vnuc.out", STATUS='UNKNOWN', ACTION='WRITE')
+!!$DO i=1, numgauss
+!!$   WRITE(12,'(100ES19.9)') (vnuc(i,j),j=1, numgauss)
+!!$ENDDO
+!!$CLOSE(12)
 
 !!$OPEN(UNIT=12, FILE="overlaps.out", STATUS='UNKNOWN', ACTION='WRITE')
 !!$DO i=1, numgauss

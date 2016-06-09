@@ -1,17 +1,28 @@
+! This subroutine is the hard-coded way to calculate the direct Coulomb operator for Beryllium using 5-s functions
+! that make up the two occupied orbitals.
+! The first two s-functions is made up of a contraction of 6 and 2 functions respectively.
+
 SUBROUTINE direct_coul(grid,pot)
 USE inputvariables
 IMPLICIT NONE
 
+! Input of the grid and the resulting direct operator
 COMPLEX(KIND=DBL), INTENT(IN) :: grid(1:nbasis)                 ! grid of points
 COMPLEX(KIND=DBL), INTENT(OUT) :: pot(1:nbasis)              ! DVR weights
 
+! The coefficents of the 5-contracted gaussians for the description of the two occupied orbitals
 REAL(KIND=DBL), DIMENSION(1:2,1:5) :: c
 
+! The transformation matrix for the 10-s fucntions to 5-s contracted functions
 REAL(KIND=DBL), DIMENSION(1:5,1:10) :: a
 
+! The Gaussian exponents for the 10 primitives
 REAL(KIND=DBL), DIMENSION(1:10) :: alpha = (/3630.0, 532.3, 117.8, 32.66, 10.48, 3.668, 1.354, 0.389, 0.1502, 0.05241/)
 
+! Indices
 INTEGER :: i,j,k,l,m,n
+
+! result of the complex error function
 COMPLEX(KIND=DBL) :: fad
 
 

@@ -1,5 +1,5 @@
 !This subroutine reads in the MESA matrices.
-SUBROUTINE gausspot(numgauss,overlaps, matrixin, kedvr, partitionflag)
+SUBROUTINE gausspot(numgauss,overlaps, matrixin, kedvr, switchv, partitionflag)
 IMPLICIT NONE
 
 ! Double Precision
@@ -8,6 +8,7 @@ INTEGER, PARAMETER :: DBL = SELECTED_REAL_KIND(p=13,r=200)
 ! Input variable
 INTEGER, INTENT(IN) :: numgauss
 INTEGER, INTENT(IN) :: kedvr
+INTEGER, INTENT(IN) :: switchv
 INTEGER, INTENT(IN) :: partitionflag
 
 ! Output matrices
@@ -52,6 +53,8 @@ CALL readmesa('exchange.dat', numgauss, exchange)
 ! Include vnuc?
 IF (kedvr .EQ. 1) THEN
    matrixin =  kinetic + vnuc + direct - 0.5*exchange
+ELSEIF (switchv .EQ. 3) THEN
+   matrixin = - 0.5*exchange
 ELSE
    matrixin = vnuc + direct - 0.5*exchange
 ENDIF

@@ -1,5 +1,5 @@
-GFORTRAN module version '4' created from mainscatter.f90 on Fri Aug  7 14:15:18 2015
-MD5:3b4384b14de58fa60e55f42e8832ad62 -- If you edit this, you'll get what you deserve.
+GFORTRAN module version '4' created from mainscatter.f90 on Tue Jun  7 12:15:02 2016
+MD5:4f3303faf2fa72b785b9c08afa5e27a3 -- If you edit this, you'll get what you deserve.
 
 (() () () () () () () () () () () () () () () () () () () () () () () ()
 () () ())
@@ -65,9 +65,9 @@ UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
 17 'm_ang' 'inputvariables' 'm_ang' 1 ((VARIABLE UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
 () 0 () () () 0 0)
-18 'mass' 'inputvariables' 'mass' 1 ((VARIABLE UNKNOWN-INTENT
-UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (REAL 8 0 0 REAL ()) 0 0 () () 0
-() () () 0 0)
+18 'mass' 'inputvariables' 'mass' 1 ((PARAMETER UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 REAL ()) 0 0 () (
+CONSTANT (REAL 8 0 0 REAL ()) 0 '0.10000000000000@1') () 0 () () () 0 0)
 19 'maxn' 'inputvariables' 'maxn' 1 ((PARAMETER UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
 (CONSTANT (INTEGER 4 0 0 INTEGER ()) 0 '500') () 0 () () () 0 0)
@@ -89,28 +89,25 @@ UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
 25 'numprimg' 'inputvariables' 'numprimg' 1 ((VARIABLE UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
 () 0 () () () 0 0)
-26 'outstep' 'inputvariables' 'outstep' 1 ((VARIABLE UNKNOWN-INTENT
-UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (REAL 8 0 0 REAL ()) 0 0 () () 0
-() () () 0 0)
-27 'partitionflag' 'inputvariables' 'partitionflag' 1 ((VARIABLE
+26 'partitionflag' 'inputvariables' 'partitionflag' 1 ((VARIABLE
 UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0
 INTEGER ()) 0 0 () () 0 () () () 0 0)
-28 'pi' 'inputvariables' 'pi' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC
+27 'pi' 'inputvariables' 'pi' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC
 UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 REAL ()) 0 0 () (CONSTANT (REAL 8
 0 0 REAL ()) 0 '0.3243f6c0000000@1') () 0 () () () 0 0)
-29 'relements' 'inputvariables' 'relements' 1 ((VARIABLE UNKNOWN-INTENT
+28 'relements' 'inputvariables' 'relements' 1 ((VARIABLE UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
 () 0 () () () 0 0)
-30 'selected_real_kind' '(intrinsic)' 'selected_real_kind' 1 ((
+29 'selected_real_kind' '(intrinsic)' 'selected_real_kind' 1 ((
 PROCEDURE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN 0 0 FUNCTION) (
-UNKNOWN 0 0 0 UNKNOWN ()) 0 0 () () 30 () () () 0 0)
-31 'svd_tol' 'inputvariables' 'svd_tol' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN 0 0 0 UNKNOWN ()) 0 0 () () 29 () () () 0 0)
+30 'svd_tol' 'inputvariables' 'svd_tol' 1 ((VARIABLE UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (REAL 8 0 0 REAL ()) 0 0 () () 0
 () () () 0 0)
-32 'switchv' 'inputvariables' 'switchv' 1 ((VARIABLE UNKNOWN-INTENT
+31 'switchv' 'inputvariables' 'switchv' 1 ((VARIABLE UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN EXPLICIT-SAVE 0 0) (INTEGER 4 0 0 INTEGER ()) 0 0 ()
 () 0 () () () 0 0)
-33 'tolerance' 'inputvariables' 'tolerance' 1 ((PARAMETER UNKNOWN-INTENT
+32 'tolerance' 'inputvariables' 'tolerance' 1 ((PARAMETER UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 REAL ()) 0 0 () (
 CONSTANT (REAL 8 0 0 REAL ()) 0 '0.6df37f675ef6ec@-8') () 0 () () () 0 0)
 )
@@ -120,5 +117,5 @@ CONSTANT (REAL 8 0 0 REAL ()) 0 '0.6df37f675ef6ec@-8') () 0 () () () 0 0)
 11 'duey' 0 12 'gridend' 0 13 'inputvariables' 0 14 'kedvr' 0 15 'l_ang'
 0 16 'm_ang' 0 17 'mass' 0 18 'maxn' 0 19 'nbasis' 0 20 'norder' 0 21
 'nucharge' 0 22 'numelements' 0 23 'numgauss' 0 24 'numprimg' 0 25
-'outstep' 0 26 'partitionflag' 0 27 'pi' 0 28 'relements' 0 29
-'selected_real_kind' 0 30 'svd_tol' 0 31 'switchv' 0 32 'tolerance' 0 33)
+'partitionflag' 0 26 'pi' 0 27 'relements' 0 28 'selected_real_kind' 0
+29 'svd_tol' 0 30 'switchv' 0 31 'tolerance' 0 32)

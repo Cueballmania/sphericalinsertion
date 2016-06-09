@@ -34,7 +34,7 @@ COMPLEX(KIND=DBL) :: smalltemp(1:numgauss,1:numgauss)
 COMPLEX(KIND=DBL) :: largetemp(1:numprimg,1:numprimg)
 
 !Read in gaussian exponents, overlaps and the potential energy in Gaussians
-CALL gausspot(numgauss, overlaps, gaussmatin, kedvr, partitionflag)
+CALL gausspot(numgauss, overlaps, gaussmatin, kedvr, switchv, partitionflag)
 
 ! CALL SVD routine to calculate the orthonormal orbitals or the pseudoinverse
 CALL SVD_Ortho(overlaps, inverse_overlaps, numgauss, orthorbitals, norbits, SVD_tol)
@@ -66,7 +66,7 @@ ENDIF
 ! Use SVD orbitals or inverse for the insertion?
 !    SVDswitch == 1: orbitals
 !    SVDswitch == 0: inverse
-insertinverse: IF(switchv .EQ. 2) THEN
+insertinverse: IF(switchv .GE. 2) THEN
    WRITE(*,'(1x,"Using SVD orthonormal orbitals for the potential with a tolerance of ", ES15.6)')  SVD_tol
    WRITE(*,'(1x,"There are ", I5, " orthonormal orbitals")') norbits
 
